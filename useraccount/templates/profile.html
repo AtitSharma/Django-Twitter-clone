@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+{% if messages %}
+    {% for message in messages%}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+<div class="row">
+    <div class="col-sm-12 col-md-4 col-lg-4"></div>
+    <div class="col-sm-12 col-md-4 col-lg-4">
+        {% if request.profile.avatar %}
+            <div>
+                <img class="img-fluid rounded-circle" src="{{ user.profile.avatar.url  }}" alt=""/>
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-4"></div>
+</div>
+<div class="row">
+<div class="col-sm-12 col-md-2 col-lg-2"></div>
+<div class="col-sm-12 col-md-8 col-lg-8">
+
+{% if form %}
+    <form method="post" action="{% url 'user:profile_update_view' %}" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">
+                Profile Info
+            </legend>
+            {{ form.as_p  }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">
+               Update
+            </button>
+            <a href="{% url 'post:password-change' %}"> Change Password </a>
+        </div>
+    </form>
+</div>
+{% else %}
+<div class="col-sm-12 col-md-2 col-lg-2"></div>
+    <div class="col-sm-12 col-md-8 col-lg-8">
+        <table class="table table-striped">
+        <thead></thead>
+        <tbody>
+            <tr>
+                <td>First Name:</td><td>{{ user.first_name }}</td>
+            </tr>
+            <tr>
+                <td>Last Name:</td><td>{{ user.last_name }}</td>
+            </tr>
+            <tr>
+                <td>Email:</td><td>{{ user.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="col-sm-12 col-md-2 col-lg-2"></div>
+{% endif %}
+
+
+
+
+<div class="col-sm-12 col-md-2 col-lg-2"></div>
+
+</div> 
+{% endblock content %}
+
+
+
+
